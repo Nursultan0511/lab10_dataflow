@@ -69,3 +69,37 @@ P2 = x(13→20) ба P6 = y(13→15F). Давталтад нэг ч удаа о�
 ## Ажиллуулах
 
     mvn test
+
+# Хэсэг C — Fault Seeding
+
+## Мутацийн туршилтын үр дүн
+
+| ID | Мутаци | Төрөл | Үр дүнгийн файл |
+|---|---|---|---|
+| M1 | streak = streak + 1 мөр устгасан | Missing update | results/mvn-test-M1.txt |
+| M2 | best = streak → best = present | Wrong variable | results/mvn-test-M2.txt |
+| M3 | int total = present + best нэмсэн | Dead definition | results/mvn-test-M3.txt |
+
+## M1 — Missing update
+
+streak-ийн шинэчлэлтийг устгаснаар хувьсагчийн утга зөв шинэчлэгдэхгүй болсон.
+JUnit тестүүдийн бодит үр дүнг mvn-test-M1.txt файлаас шалгасан.
+
+## M2 — Wrong variable
+
+best хувьсагчид streak-ийн оронд present утгыг оноосон.
+DU хосын хамралт нь хувьсагчийн утга зөв эсэхийг бүрэн батлахгүй.
+Иймээс семантикийн алдааг илрүүлэх нэмэлт тест шаардлагатай.
+
+## M3 — Dead definition
+
+total хувьсагчийг зарлаж утга оноосон боловч ашиглаагүй.
+Энэ нь програмын үр дүнд нөлөөлөхгүй тул JUnit тест заавал унагахгүй.
+Static Analysis буюу SonarLint, IDE inspection зэрэг хэрэгслээр илрүүлнэ.
+
+## Эцсийн шалгалт
+
+Эх кодыг git restore ашиглан сэргээсэн.
+Эцсийн тестийн гаралт: results/mvn-verify-final.txt
+JaCoCo тайлан: results/jacoco-final.csv
+
