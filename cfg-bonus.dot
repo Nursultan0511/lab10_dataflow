@@ -1,0 +1,54 @@
+digraph bonus {
+  rankdir=TB; nodesep=0.5; ranksep=0.6;
+  node [shape=box, style=rounded, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=9];
+
+  n31  [label="31: ENTRY bonus(attendance, threshold)\ndef: attendance, threshold"];
+  n32a [shape=diamond, label="32a: attendance == null\np-use: attendance"];
+  n32b [shape=diamond, label="32b: threshold < 0\np-use: threshold"];
+  n33  [label="33: throw IllegalArgumentException"];
+  n35  [label="35: present = 0\ndef: present"];
+  n36  [label="36: streak = 0\ndef: streak"];
+  n37  [label="37: best = 0\ndef: best"];
+  n38c [shape=diamond, label="38: for-each нөхцөл\nattendance-д дараагийн элемент байна уу?\np-use: attendance"];
+  n38s [label="38: алхам a = дараагийн элемент\ndef: a"];
+  n39  [shape=diamond, label="39: a > 0\np-use: a"];
+  n40  [label="40: present = present + 1\nc-use: present; def: present"];
+  n41  [label="41: streak = streak + 1\nc-use: streak; def: streak"];
+  n42  [shape=diamond, label="42: streak > best\np-use: streak, best"];
+  n43  [label="43: best = streak\nc-use: streak; def: best"];
+  n46  [label="46: streak = 0\ndef: streak (KILL streak)"];
+  n49  [label="49: score = 0\ndef: score"];
+  n50  [shape=diamond, label="50: present >= threshold\np-use: present, threshold"];
+  n51  [label="51: score = 5\ndef: score"];
+  n53  [shape=diamond, label="53: best >= 5\np-use: best"];
+  n54  [label="54: score = score + 3\nc-use: score; def: score"];
+  n56  [label="56: return score\nc-use: score"];
+
+  n31  -> n32a [label="t1_below, t2_single, t3_null, t4_negThr\nt5_empty, t6_allAbsent, t7_longBroken, t8_streak4"];
+  n32a -> n33  [label="T\nt3_null"];
+  n32a -> n32b [label="F\nt1_below, t2_single, t4_negThr\nt5_empty, t6_allAbsent, t7_longBroken, t8_streak4"];
+  n32b -> n33  [label="T\nt4_negThr"];
+  n32b -> n35  [label="F\nt1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n35  -> n36  [label="t1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n36  -> n37  [label="t1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n37  -> n38c [label="t1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n38c -> n38s [label="T\nt1_below, t2_single, t6_allAbsent\nt7_longBroken, t8_streak4"];
+  n38c -> n49  [label="F\nt1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n38s -> n39  [label="t1_below, t2_single, t6_allAbsent\nt7_longBroken, t8_streak4"];
+  n39  -> n40  [label="T\nt1_below, t2_single\nt7_longBroken, t8_streak4"];
+  n39  -> n46  [label="F\nt1_below, t6_allAbsent\nt7_longBroken"];
+  n40  -> n41  [label="t1_below, t2_single\nt7_longBroken, t8_streak4"];
+  n41  -> n42  [label="t1_below, t2_single\nt7_longBroken, t8_streak4"];
+  n42  -> n43  [label="T\nt1_below, t2_single\nt7_longBroken, t8_streak4"];
+  n42  -> n38c [label="F\nt7_longBroken"];
+  n43  -> n38c [label="t1_below, t2_single\nt7_longBroken, t8_streak4"];
+  n46  -> n38c [label="t1_below, t6_allAbsent\nt7_longBroken"];
+  n49  -> n50  [label="t1_below, t2_single, t5_empty\nt6_allAbsent, t7_longBroken, t8_streak4"];
+  n50  -> n51  [label="T\nt2_single, t5_empty\nt7_longBroken, t8_streak4"];
+  n50  -> n53  [label="F\nt1_below, t6_allAbsent"];
+  n51  -> n53  [label="t2_single, t5_empty\nt7_longBroken, t8_streak4"];
+  n53  -> n54  [label="T\nt1_below, t7_longBroken"];
+  n53  -> n56  [label="F\nt2_single, t5_empty\nt6_allAbsent, t8_streak4"];
+  n54  -> n56  [label="t1_below, t7_longBroken"];
+}
