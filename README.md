@@ -1,3 +1,21 @@
+# lab10-dataflow
+**Оюутны мэдээлэл**
+Нэр: Д.Нурсолтан
+Оюутны код: B232270039
+**Хөгжүүлэлтийн орчин**
+java -version гаралт:
+
+openjdk version "21.0.12.1" 2026-08-18
+OpenJDK Runtime Environment (build 21.0.12.1+1-1-deb13u1)
+OpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-deb13u1, mixed mode, sharing)
+mvn -version гаралт:
+
+Apache Maven 3.9.9
+Maven home: /usr/share/maven
+Java version: 21.0.12.1, vendor: Debian, runtime: /usr/lib/jvm/java-21-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.12.113+deb13-amd64", arch: "amd64", family: "unix"
+
 # Лаб 10 — Өгөгдлийн урсгалын тест
 
 ## Хэсэг A: gcd — DU хосын хүснэгт
