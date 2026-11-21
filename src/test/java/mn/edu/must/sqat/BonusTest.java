@@ -76,4 +76,10 @@ class BonusTest {
     void t10_thrZero() {
         assertEquals(5, DataFlowTargets.bonus(new int[] {0, 1}, 0));
     }
+
+    @Test
+    @DisplayName("t11 two split runs (3 then 4), present 7 but longest streak 4; score 5 [kills M2: best = present]")
+    void t11_splitRunsKillM2() {
+        assertEquals(5, DataFlowTargets.bonus(new int[] {1, 1, 1, 0, 1, 1, 1, 1}, 3));
+    }
 }
